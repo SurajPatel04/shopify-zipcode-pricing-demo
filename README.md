@@ -135,10 +135,3 @@ assignment_shopfy/
 - **`90210`** ➡️ Price: $1799
 - **Any other valid 5-digit ZIP code** ➡️ Defaults to: $1499
 
-## Screenshots
-
-### Product Page
-![Product Page](screenshots/product-page.png)
-
-### ZIP Price Result
-![ZIP Result](screenshots/zip-price.png)
