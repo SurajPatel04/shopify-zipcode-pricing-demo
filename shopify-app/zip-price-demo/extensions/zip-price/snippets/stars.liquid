@@ -1,0 +1,63 @@
+<div class="zip-price-widget">
+  <label for="zip-code">ZIP Code</label>
+
+  <input
+    id="zip-code"
+    type="text"
+    maxlength="5"
+    placeholder="Enter ZIP code"
+  >
+
+  <button id="check-price-btn">
+    Check Price
+  </button>
+
+  <p id="price-result"></p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("check-price-btn");
+
+    button?.addEventListener("click", async () => {
+
+        const zipCode = document.getElementById("zip-code").value;
+
+        const result = document.getElementById("price-result");
+
+        if (!zipCode) {
+            result.innerHTML = "Please enter ZIP code.";
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                "https://shopify-zipcode-pricing-demo-wj6w.vercel.app/api/price",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        zipCode,
+                        productId: "{{ product.id }}"
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+                result.innerHTML = `Estimated Price: <strong>$${data.data.price}</strong>`;
+            } else {
+                result.innerHTML = data.message;
+            }
+
+        } catch (err) {
+            result.innerHTML = "Unable to fetch price.";
+        }
+
+    });
+});
+</script>
